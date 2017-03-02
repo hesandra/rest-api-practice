@@ -25,13 +25,10 @@ app.post('/api/teachers', function(req, res){
   //lists information for every teacher
   var name = req.body.name;
   var email = req.body.email;
-    var teacher = new Teacher({name: name, email: email})
-    console.log(teacher.name, 'teacher name');
-
-    teacher.save(function (err, teacher) {
-    if (err) return console.error(err);
-   });
- res.send(teacher)
+  console.log(req.body.name, '++++++++++++++++++++++++++++++++');
+  console.log(req.body.email)
+ 
+ res.send("this works")
 
 
   //console.log(req.body);
