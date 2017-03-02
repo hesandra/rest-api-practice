@@ -26,23 +26,14 @@ var classSchema = mongoose.Schema({
 
 //teachers is the tablename
 var Teacher = mongoose.model('Teacher', teacherSchema, 'teachers');
-
-   var teacher = new Teacher({
-       name: 'Ella', 
-       email: 'yahho.com'})
-       
-    console.log(teacher, 'after new Teacher')
-    console.log(teacher.name, 'teacher name');
-
-    teacher.save(function (err) {
-    if (err) return console.error(err);
-   });
-
-
-Teacher.findOne({name: 'Ella'},function(err, teacher){
-  if (err) return console.error(err);
-  console.log(teacher, 'found this teacher');
-})
+//console.log(Teacher, 'Teacher in model')
 
 module.exports = Teacher;
             
+var Student = mongoose.model('Student', studentSchema, 'students');
+
+module.exports = Student;
+
+var Class = mongoose.model('Class', classSchema, 'classes');
+
+module.exports = Class;
