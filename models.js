@@ -16,24 +16,30 @@ var teacherSchema = mongoose.Schema({
 });
 var studentSchema = mongoose.Schema({
     name: 'String',
-    email: 'String'
+    email: 'String', 
+    classes: ['Number']
 });
 var classSchema = mongoose.Schema({
     code: 'String',
     name: 'String'
 });
 
+var studentClasses = mongoose.Schema({
+    student_id: 'String',
+    class_id: 'String'
+})
+
 
 //teachers is the tablename
 var Teacher = mongoose.model('Teacher', teacherSchema, 'teachers');
 //console.log(Teacher, 'Teacher in model')
-
-module.exports = Teacher;
             
 var Student = mongoose.model('Student', studentSchema, 'students');
 
-module.exports = Student;
-
 var Class = mongoose.model('Class', classSchema, 'classes');
 
-module.exports = Class;
+module.exports = {
+    Teacher,
+    Student, 
+    Class
+}

@@ -1,9 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var models = require('./models');
-var Teacher = require('./models');
-var Student = require('./models');
-var Class = require('./models');
+var Teacher = require('./models').Teacher;
+var Student = require('./models').Student;
+var Class = require('./models').Class;
 var app = express();
 
 app.use(bodyParser.json());
@@ -21,7 +21,7 @@ app.get('/api/teachers/:id', function (req, res) {
   var id = req.params.id;
   Teacher.find(id, function (err, teacher) {
     if (err) return console.error(err);
-    res.send(teacher[id])
+    res.send(teacher[id-1])
   });
 });
 
@@ -29,19 +29,17 @@ app.post('/api/teachers', function (req, res) {
   //lists information for every teacher
   var name = req.body.name;
   var email = req.body.email;
-  console.log(req.body.name, '++++++++++++++++++++++++++++++++');
-  console.log(req.body.email)
+
   var teacher = new Teacher({
     name: name,
     email: email
   })
-  teacher.save(function (err) {
+  console.log(teacher);
+  teacher.save(function (err, teacher) {
     if (err) return console.error(err);
   });
-  res.send(teacher)
-  //console.log(req.body);
-  //res.send('this works');
-})
+   res.send(teacher);
+});
 
 //STUDENTS
 app.get('/api/students', function (req, res) {
@@ -56,7 +54,7 @@ app.get('/api/students/:id', function (req, res) {
   var id = req.params.id;
   Student.find(id, function (err, student) {
     if (err) return console.error(err);
-    res.send(student[id])
+    res.send(student[id-1])
   });
 });
 
@@ -64,10 +62,14 @@ app.post('/api/students', function (req, res) {
   console.log('in students');
   var name = req.body.name;
   var email = req.body.email;
+  var classes = req.body.classes;
+
   var student = new Student({
     name: name,
-    email: email
+    email: email, 
+    classes: classes
   })
+
   student.save(function (err) {
     if (err) return console.error(err);
   });
@@ -86,7 +88,7 @@ app.get('/api/classes/:id', function (req, res) {
   var id = req.params.id;
   Class.find(id, function (err, classes) {
     if (err) return console.error(err);
-    res.send(classes[id])
+    res.send(classes[id-1])
   });
 });
 
