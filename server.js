@@ -72,12 +72,12 @@ app.post('/api/students', function (req, res) {
   console.log('in students');
   var name = req.body.name;
   var email = req.body.email;
-  var classes = req.body.classes;
+  //var classes = req.body.classes;
 
   var student = new Student({
     name: name,
-    email: email, 
-    classes: classes
+    email: email
+ //   classes: classes
   })
 //console.log(Student, 'stuuuuudent');
 //console.log(db.students.find(), '+++++++++++++*************');
@@ -91,6 +91,7 @@ app.post('/api/students', function (req, res) {
   student.save(function (err) {
     if (err) return console.error(err);
   });
+  res.sendStatus(200);
   res.send(student)
 })
 

@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js">
-    <link rel="stylesheet" ng-href="https://bootswatch.com/cosmo/bootstrap.min.css">
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/cosmo/bootstrap.min.css">
     <script src="app.js"></script>
 </head>
 
@@ -15,31 +14,6 @@
     <button ng-click="clickTeachers()">Find all teachers</button>
     <button ng-click="clickStudents()">Find all students</button>
     <button ng-click="clickClasses()">Find all classes</button>
-
-<div>
-    <h3>Create a teacher</h1>
-    <form novalidate>
-        Name:<br>
-        <input type="text" ng-model="user.name"><br> Email:<br>
-        <input type="text" ng-model="user.email">
-        <br><br>
-        <button ng-submit="createTeacher()">create</button>
-    </form>
-</div>
-
-<div>
-    <h3>Create a student</h1>
-    <form>
-        Name:<br>
-        <input type="text" ng-model="student.name"><br> 
-        Email:<br>
-        <input type="text" ng-model="student.email"><br>
-        Classes:<br>
-        <input type="text" ng-model="student.classes">
-        <br>
-        <button ng-click="createStudent()">create</button>
-    </form>
-</div>
     
     <div ng-show="showTeachers">
     <div ng-repeat="teacher in teachers">
@@ -57,9 +31,36 @@
     </div>
         <div ng-show="showClasses">
         <div ng-repeat="class in classes">
+        <div>{{ class._id }}</div>
         <div>{{ class.code }}</div>
         <div>{{ class.name }}</div>
     </div>
     </div> 
+
+    <div>
+    <h3>Create a teacher</h3>
+    <form novalidate>
+        Name:<br>
+        <input type="text" ng-model="teacher.name"><br> 
+        Email:<br>
+        <input type="text" ng-model="teacher.email">
+        <br>
+        <button ng-click="createTeacher()">create</button>
+    </form>
+</div>
+
+<div>
+    <h3>Create a student</h1>
+    <form>
+        Name:<br>
+        <input type="text" ng-model="student.name"><br> 
+        Email:<br>
+        <input type="text" ng-model="student.email"><br>
+        Classes:<br>
+        <input type="text" ng-model="student.classes">
+        <br>
+        <button ng-click="createStudent()">create</button>
+    </form>
+</div>
 </body>
 </html>

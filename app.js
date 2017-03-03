@@ -2,14 +2,14 @@
 //controller classes
 var app = angular.module('app', []);
 
-app.controller('MainController', ['$scope', '$http', function($scope, $http){
+app.controller('MainController', function($scope, $http){
 //$scope.greet = 'hello world';
 $scope.showTeachers = false;
 $scope.showStudents = false;
 $scope.showClasses = false;
 
 $scope.clickTeachers = function(){
-  console.log('clicked');
+console.log('clicked');
 $http.get('/api/teachers')
 .then(function(results){
  $scope.teachers = results.data;
@@ -41,19 +41,22 @@ $http.get('/api/classes')
 }
 //not grapping inputs from client yet
 //need param
-$scope.createStudent = function(data){
-  //var data = $.param({
-  //name: $scope.name,
-  //email:$scope.email,
-  //classes:$scope.classes
-  //});
-
-  $http.post('/api/students')
-  .then(function(data){
-    console.log(data)
-  })
- }
-
+$scope.createStudent = function(){
+  var data = {
+  name: $scope.student.name,
+  email:$scope.student.email
+  };
+// console.log(data);
+  $http({
+    method: 'POST', 
+    url: '/api/students',
+    data: data
+  }).then(function(response){
+    console.log(response)
+  }).catch(function(err){
+    console.log(err)
+  });
+};
 //$scope.createStudent = function(){
   //var data = $.param({
     //name: $scope.name,
@@ -69,8 +72,23 @@ $scope.createStudent = function(data){
     //$scope.students = data;
  // })
 //}
-
-}]);
+$scope.createTeacher = function(){
+  var data = {
+  name: $scope.teacher.name,
+  email:$scope.teacher.email
+  };
+// console.log(data);
+  $http({
+    method: 'POST', 
+    url: '/api/teachers',
+    data: data
+  }).then(function(response){
+    console.log(response)
+  }).catch(function(err){
+    console.log(err)
+  });
+ };
+});
 
 
 
