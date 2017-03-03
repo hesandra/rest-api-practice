@@ -1,10 +1,12 @@
 var promise = require('promise');
 var mongoose = require('mongoose');
+var mongodb = require('mongodb');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 mongoose.connect('mongodb://localhost:27017/api');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function(){
+db.once('open', function(err){
     console.log("connected!!!!")
 });
 
@@ -17,17 +19,13 @@ var teacherSchema = mongoose.Schema({
 var studentSchema = mongoose.Schema({
     name: 'String',
     email: 'String', 
-    classes: ['Number']
+    classes: [{type: ObjectId, ref: 'Class'}]
 });
 var classSchema = mongoose.Schema({
     code: 'String',
     name: 'String'
 });
 
-var studentClasses = mongoose.Schema({
-    student_id: 'String',
-    class_id: 'String'
-})
 
 
 //teachers is the tablename

@@ -1,4 +1,6 @@
 var express = require('express');
+var mongoose = require('mongoose');
+mongoose.Promise = require("bluebird");
 var bodyParser = require('body-parser');
 var models = require('./models');
 var Teacher = require('./models').Teacher;
@@ -9,17 +11,25 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//this is to render page to index
+app.use(express.static(__dirname));
+//this is to render index
+app.get('/', function(req,res){
+  res.render('index');
+})
+
 //TEACHERS
 app.get('/api/teachers', function (req, res) {
   Teacher.find({}, function (err, teacher) {
-    if (err) return console.error(err);
-    res.send(teacher);
+    if (err) res.status(false).send(err.toString());
+    res.status(200).send(teacher);
   })
 })
 
 app.get('/api/teachers/:id', function (req, res) {
   var id = req.params.id;
   Teacher.find(id, function (err, teacher) {
+    //response send back object with 
     if (err) return console.error(err);
     res.send(teacher[id-1])
   });
@@ -69,7 +79,15 @@ app.post('/api/students', function (req, res) {
     email: email, 
     classes: classes
   })
-
+//console.log(Student, 'stuuuuudent');
+//console.log(db.students.find(), '+++++++++++++*************');
+Student.findOneAndUpdate({_id},
+ {$push:{classes: classes}},
+ {safe:true, upsert:true},
+ function(err, model){
+   console.log(err);
+  })
+  
   student.save(function (err) {
     if (err) return console.error(err);
   });
