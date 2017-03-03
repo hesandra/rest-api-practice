@@ -81,12 +81,12 @@ app.post('/api/students', function (req, res) {
   })
 //console.log(Student, 'stuuuuudent');
 //console.log(db.students.find(), '+++++++++++++*************');
-Student.findOneAndUpdate({_id},
- {$push:{classes: classes}},
- {safe:true, upsert:true},
- function(err, model){
-   console.log(err);
-  })
+//Student.findOneAndUpdate({_id},
+ //{$push:{classes: classes}},
+ //{safe:true, upsert:true},
+ //function(err, model){
+   //console.log(err);
+  //})
   
   student.save(function (err) {
     if (err) return console.error(err);
